@@ -6,7 +6,7 @@ public class stringexample {
         System.out.println(mesaj);
         System.out.println(mesaj.length());
         System.out.println(mesaj.charAt(10));
-        System.out.println(mesaj.concat(" Balkız ile keloğlan"));
+        System.out.println(mesaj.concat(" "));
         System.out.println(mesaj.substring(0, 9));
         System.out.println(mesaj.substring(9));
         System.out.println(mesaj.startsWith("b"));
@@ -19,8 +19,8 @@ public class stringexample {
         System.out.println(mesaj.lastIndexOf("o"));
         System.out.println(mesaj.replace(" ", "-"));
 
-        for (String kelime : mesaj.split(" ")) {
-            System.out.println(kelime);
+        for (String word : mesaj.split("Let's get out.")) {
+            System.out.println(word);
         }
 
         System.out.println(mesaj.toUpperCase());

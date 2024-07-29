@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 public class tekciftTest{
     @Test
     public void testCiftmitekmi() {
-        tekcift tc = new tekcift();
+        OddEven tc = new OddEven();
 
-        assertTrue(tc.ciftmitekmi(4), "çift olmalı");
+        assertTrue(tc.OddOrEven(4), "çift olmalı");
 
-        assertFalse(tc.ciftmitekmi(7), "tek olmamlı");
+        assertFalse(tc.OddOrEven(7), "tek olmamlı");
 
-        assertFalse(tc.ciftmitekmi(-3), "tek olmalı");
+        assertFalse(tc.OddOrEven(-3), "tek olmalı");
     }
 }

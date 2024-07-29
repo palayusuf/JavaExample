@@ -2,23 +2,23 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        tekcift ciftkontrol = new tekcift();
+        OddEven EvenControl = new OddEven();
         int sayi = 10;
-        boolean ciftmi = ciftkontrol.ciftmitekmi(sayi);
+        boolean ciftmi = EvenControl.OddOrEven(sayi);
         System.out.println(ciftmi);
 
-        hesapmakinesi hm = new hesapmakinesi();
-        int sonuc = hm.bolum(25, 5);
-        System.out.println("Bölüm: " + sonuc);
-        sonuc = hm.carpim(25, 5);
-        System.out.println("Çarpım: " + sonuc);
-        sonuc = hm.toplama(25, 5);
-        System.out.println("Toplama: " + sonuc);
-        sonuc = hm.cikarma(25, 5);
-        System.out.println("Çıkarma: " + sonuc);
+        Calculator hm = new Calculator();
+        int sonuc = hm.division(25, 5);
+        System.out.println("Division: " + sonuc);
+        sonuc = hm.multiplication(25, 5);
+        System.out.println("Multiplication: " + sonuc);
+        sonuc = hm.addition(25, 5);
+        System.out.println("Addition: " + sonuc);
+        sonuc = hm.subtraction(25, 5);
+        System.out.println("Scd /path/to/your/project\nubtraction: " + sonuc);
 
         stringexample str = new stringexample();
-        String mesaj = "selam bugün hava çok güzel.";
-        str.printMessageDetails(mesaj);
+        String message = "Hi, today is a very nice day.";
+        str.printMessageDetails(message);
     }
 }
