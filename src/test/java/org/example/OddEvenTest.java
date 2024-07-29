@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
-public class tekciftTest{
+public class OddEvenTest {
     @Test
-    public void testCiftmitekmi() {
+    public void OddOrEvenTest() {
         OddEven tc = new OddEven();
 
         assertTrue(tc.OddOrEven(4), "çift olmalı");
