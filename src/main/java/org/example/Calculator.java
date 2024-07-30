@@ -1,13 +1,13 @@
 package org.example;
 
 public class Calculator {
-    public int addition(int x, int y)  {
+    public int add(int x, int y)  {
         return x+y;
     }
-    public int multiplication(int x, int y){
+    public int multiply(int x, int y){
         return x*y;
     }
-    public int division(int x, int y) {
+    public int divide(int x, int y) {
         if (y != 0) {
             return x / y;
         }
@@ -15,7 +15,7 @@ public class Calculator {
             return 0;
         }
     }
-    public int subtraction(int x, int y) {
+    public int subtract(int x, int y) {
         return x-y;
     }
 }
