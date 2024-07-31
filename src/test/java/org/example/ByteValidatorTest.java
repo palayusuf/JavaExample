@@ -1,19 +1,23 @@
 package org.example;
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 public class ByteValidatorTest {
+
     @Test
     public void testValidByteArray() {
-        byte[] validArray = {'A', 'B', 'C'};
-        String validCharacters = "ABC";
-        assertTrue(ByteValidator.isValidByteArray(validArray, validCharacters));
+        String validCharacters = "Hello";
+        ByteValidator validator = new ByteValidator(validCharacters);
+
+        byte[] validArray = { 'H', 'e', 'l', 'l', 'o' };
+        assertTrue(validator.isValidByteArray(validArray));
     }
 
     @Test
     public void testInvalidByteArray() {
-        byte[] invalidArray = {'A', 'B', 'D'};
-        String validCharacters = "ABC";
-        assertFalse(ByteValidator.isValidByteArray(invalidArray, validCharacters));
+        String validCharacters = "Hello";
+        ByteValidator validator = new ByteValidator(validCharacters);
+
+        byte[] invalidArray = { 'H', 'e', 'l', 'l', 'o', '!', '!' };
+        assertFalse(validator.isValidByteArray(invalidArray));
     }
 }

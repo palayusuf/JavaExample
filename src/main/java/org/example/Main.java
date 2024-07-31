@@ -20,10 +20,12 @@ public class Main {
         stringexample str = new stringexample();
         String message = "Hi, today is a very nice day.";
         str.printMessageDetails(message);
-        ByteValidator bv = new ByteValidator();
-        byte[] byteArray ="Hello".getBytes();
         String validCharacters = "Hello";
-        ByteValidator bv1 = bv;
-        bv1.isValidByteArray(byteArray, validCharacters);
-}
-}
+        ByteValidator validator = new ByteValidator(validCharacters);
+
+        byte[] byteArray = { 'H', 'e', 'l', 'l', 'o' };
+        boolean isValid = validator.isValidByteArray(byteArray);
+
+        System.out.println("Is valid: " + isValid);
+    }
+    }
