@@ -20,10 +20,9 @@ public class Main {
         stringexample str = new stringexample();
         String message = "Hi, today is a very nice day.";
         str.printMessageDetails(message);
-        String validCharacters = "Hello";
-        ByteValidator validator = new ByteValidator(validCharacters);
 
-        byte[] byteArray = { 'H', 'e', 'l', 'l', 'o' };
+        ByteValidator validator = new ByteValidator("ISO-8859-9");
+        byte[] byteArray = { (byte) 0xE7 };
         boolean isValid = validator.isValidByteArray(byteArray);
 
         System.out.println("Is valid: " + isValid);
