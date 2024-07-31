@@ -20,5 +20,10 @@ public class Main {
         stringexample str = new stringexample();
         String message = "Hi, today is a very nice day.";
         str.printMessageDetails(message);
-    }
+        ByteValidator bv = new ByteValidator();
+        byte[] byteArray ="Hello".getBytes();
+        String validCharacters = "Hello";
+        ByteValidator bv1 = bv;
+        bv1.isValidByteArray(byteArray, validCharacters);
+}
 }
