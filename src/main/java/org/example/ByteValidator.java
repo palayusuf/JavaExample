@@ -1,23 +1,29 @@
 package org.example;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 
 public class ByteValidator {
+    String charsetName;
 
-    // Geçerli karakterleri saklamak için kullanılan özellik
-    public String validCharacters;
-
-    // Constructor ile validCharacters özelliğini başlatıyoruz
-    public ByteValidator(String validCharacters) {
-        this.validCharacters = validCharacters;
+    public ByteValidator(String charsetName) {
+        this.charsetName = charsetName;
     }
 
-    // Byte dizisini geçerli karakterlerle karşılaştıran örnek metot
     public boolean isValidByteArray(byte[] byteArray) {
-        for (byte b : byteArray) {
-            char c = (char) b;
-            if (validCharacters.indexOf(c) == -1) {
-                return false;
-            }
+        if (!Charset.isSupported(charsetName)) {
+            return false;
         }
-        return true;
+
+        Charset charset = Charset.forName(charsetName);
+        CharsetDecoder decoder = charset.newDecoder();
+
+        ByteBuffer byteBuffer = ByteBuffer.wrap(byteArray);
+        CharBuffer charBuffer = CharBuffer.allocate(byteArray.length);
+
+        boolean isError = decoder.decode(byteBuffer, charBuffer, true).isError();
+
+        return !isError;
     }
 }
