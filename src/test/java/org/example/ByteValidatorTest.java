@@ -7,10 +7,9 @@ public class ByteValidatorTest {
 
     @Test
     public void testValidByteArrayISO() {
-        // ISO-8859-9 karakter seti ile bir ByteValidator oluştur
         ByteValidator validator = new ByteValidator("ISO-8859-9");
 
-        byte[] validArray = {(byte) 0xE7};
+        byte[] validArray = "öşğüçı".getBytes();
         assertTrue(validator.isValidByteArray(validArray));
     }
 
@@ -26,7 +25,7 @@ public class ByteValidatorTest {
     public void testValidByteArrayUTF8() {
         ByteValidator validator = new ByteValidator("UTF-8");
 
-        byte[] validArray = {(byte) 0xC3, (byte) 0xA7};
+        byte[] validArray = "öşğüçı".getBytes();
         assertTrue(validator.isValidByteArray(validArray));
     }
 
@@ -34,7 +33,7 @@ public class ByteValidatorTest {
     public void testUnsupportedCharset() {
         ByteValidator validator = new ByteValidator("UNSUPPORTED-CHARSET");
 
-        byte[] array = {(byte) 0xC3, (byte) 0xA7};
+        byte[] array = "öşğüçı".getBytes();
         assertFalse(validator.isValidByteArray(array));
     }
 }
