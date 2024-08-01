@@ -3,6 +3,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.nio.charset.UnsupportedCharsetException;
 
 public class ByteValidator {
     String charsetName;
@@ -13,7 +14,7 @@ public class ByteValidator {
 
     public boolean isValidByteArray(byte[] byteArray) {
         if (!Charset.isSupported(charsetName)) {
-            return false;
+            throw new UnsupportedCharsetException("Unsupported charset: " + charsetName);
         }
 
         Charset charset = Charset.forName(charsetName);
