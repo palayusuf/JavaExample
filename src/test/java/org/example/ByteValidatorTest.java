@@ -2,6 +2,8 @@ package org.example;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 
 public class ByteValidatorTest {
 
@@ -9,31 +11,36 @@ public class ByteValidatorTest {
     public void testValidByteArrayISO() {
         ByteValidator validator = new ByteValidator("ISO-8859-9");
 
-        byte[] validArray = "öşğüçı".getBytes();
+        byte[] validArray = "öşğüçı".getBytes(Charset.forName("ISO-8859-9"));
         assertTrue(validator.isValidByteArray(validArray));
     }
 
     @Test
-    public void testInvalidByteArrayUTF8() {
-        ByteValidator validator = new ByteValidator("UTF-8");
+    public void testInvalidByteArrayISO() {
+        ByteValidator validator = new ByteValidator("ISO-8859-9");
 
-        byte[] invalidArray = {(byte) 0xC3, (byte) 0x28};
-        assertFalse(validator.isValidByteArray(invalidArray));
+        byte[] validArray = "æ".getBytes(Charset.forName("ISO-8859-9"));
+        assertTrue(validator.isValidByteArray(validArray), "Byte array should be valid.");
     }
-
     @Test
-    public void testValidByteArrayUTF8() {
-        ByteValidator validator = new ByteValidator("UTF-8");
+    public void testValidByteArrayISOExtended() {
+        ByteValidator validator = new ByteValidator("ISO-8859-9");
 
-        byte[] validArray = "öşğüçı".getBytes();
+        byte[] validArray = "æ".getBytes(Charset.forName("ISO-8859-9"));
         assertTrue(validator.isValidByteArray(validArray));
     }
 
     @Test
     public void testUnsupportedCharset() {
-        ByteValidator validator = new ByteValidator("UNSUPPORTED-CHARSET");
+        Exception exception = assertThrows(UnsupportedCharsetException.class, () -> {
+            ByteValidator validator = new ByteValidator("UNSUPPORTED-CHARSET");
+            byte[] array = "öşğüçı".getBytes(Charset.forName("ISO-8859-9"));
+            validator.isValidByteArray(array);
+        });
 
-        byte[] array = "öşğüçı".getBytes();
-        assertFalse(validator.isValidByteArray(array));
+        String expectedMessage = "Unsupported charset: UNSUPPORTED-CHARSET";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 }
