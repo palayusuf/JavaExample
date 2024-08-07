@@ -27,7 +27,7 @@ public class ByteValidatorTest {
     public void testUnsupportedCharset() {
         Exception exception = assertThrows(UnsupportedCharsetException.class, () -> {
             ByteValidator validator = new ByteValidator("UNSUPPORTED-CHARSET");
-            byte[] array = "A".getBytes();
+            byte[] array = "Б".getBytes();
             validator.isValidByteArray(array);
         });
 
