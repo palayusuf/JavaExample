@@ -11,7 +11,7 @@ public class ByteValidatorTest {
     public void testValidByteArrayISO() {
         ByteValidator validator = new ByteValidator("ISO-8859-9");
 
-        byte[] validArray = "Б".getBytes(Charset.forName("ISO-8859-9"));
+        byte[] validArray = "Б".getBytes();
         assertTrue(validator.isValidByteArray(validArray));
     }
 
@@ -19,7 +19,7 @@ public class ByteValidatorTest {
     public void testInvalidByteArrayISO() {
         ByteValidator validator = new ByteValidator("ISO-8859-9");
 
-        byte[] validArray = "Б".getBytes(Charset.forName("ISO-8859-9"));
+        byte[] validArray = "Б".getBytes();
         assertTrue(validator.isValidByteArray(validArray), "Byte array should be valid.");
     }
 
@@ -27,7 +27,7 @@ public class ByteValidatorTest {
     public void testUnsupportedCharset() {
         Exception exception = assertThrows(UnsupportedCharsetException.class, () -> {
             ByteValidator validator = new ByteValidator("UNSUPPORTED-CHARSET");
-            byte[] array = "Б".getBytes(Charset.forName("ISO-8859-9"));
+            byte[] array = "A".getBytes();
             validator.isValidByteArray(array);
         });
 
