@@ -11,7 +11,7 @@ public class TimeZoneConverterTest {
 
     @Test
     public void testConvertInstantToNewYork() {
-        LocalDateTime fixedDateTime = LocalDateTime.parse("2024-08-08T12:15:00");
+        LocalDateTime fixedDateTime = LocalDateTime.parse("D/2024-08-08 T/05:15:00");
         Instant fixedInstant = fixedDateTime.atZone(ZoneId.systemDefault()).toInstant();
         LocalDateTime expected = fixedInstant.atZone(ZoneId.of("America/New_York")).toLocalDateTime();
         LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(fixedInstant, "America/New_York");
@@ -20,7 +20,7 @@ public class TimeZoneConverterTest {
 
     @Test
     public void testConvertInstantToLosAngeles() {
-        LocalDateTime fixedDateTime = LocalDateTime.parse("2024-08-08T12:15:00");
+        LocalDateTime fixedDateTime = LocalDateTime.parse("D/2024-08-08 T/04:15:00");
         Instant fixedInstant = fixedDateTime.atZone(ZoneId.systemDefault()).toInstant();
         LocalDateTime expected = fixedInstant.atZone(ZoneId.of("America/Los_Angeles")).toLocalDateTime();
         LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(fixedInstant, "America/Los_Angeles");
@@ -29,7 +29,7 @@ public class TimeZoneConverterTest {
 
     @Test
     public void testConvertInstantToBrussels() {
-        LocalDateTime fixedDateTime = LocalDateTime.parse("2024-08-08T12:15:00");
+        LocalDateTime fixedDateTime = LocalDateTime.parse("D/2024-08-08 T/10:15:00");
         Instant fixedInstant = fixedDateTime.atZone(ZoneId.systemDefault()).toInstant();
         LocalDateTime expected = fixedInstant.atZone(ZoneId.of("Europe/Brussels")).toLocalDateTime();
         LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(fixedInstant, "Europe/Brussels");
@@ -38,7 +38,7 @@ public class TimeZoneConverterTest {
 
     @Test
     public void testConvertInstantToBangkok() {
-        LocalDateTime fixedDateTime = LocalDateTime.parse("2024-08-08T12:15:00");
+        LocalDateTime fixedDateTime = LocalDateTime.parse("D/2024-08-08 T/13:15:00");
         Instant fixedInstant = fixedDateTime.atZone(ZoneId.systemDefault()).toInstant();
         LocalDateTime expected = fixedInstant.atZone(ZoneId.of("Asia/Bangkok")).toLocalDateTime();
         LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(fixedInstant, "Asia/Bangkok");
