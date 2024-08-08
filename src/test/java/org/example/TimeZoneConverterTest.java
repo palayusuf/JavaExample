@@ -8,32 +8,40 @@ import java.time.ZoneId;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TimeZoneConverterTest {
+
     @Test
-    public void testConvertInstantToNewyork(){
-        Instant instant =Instant.now();
-        LocalDateTime expected = instant.atZone(ZoneId.of("America/New_York")).toLocalDateTime();
-        LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(instant,"America/New_York");
-        assertEquals(expected,actual);
+    public void testConvertInstantToNewYork() {
+        LocalDateTime fixedDateTime = LocalDateTime.parse("2024-08-08T12:15:00");
+        Instant fixedInstant = fixedDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        LocalDateTime expected = fixedInstant.atZone(ZoneId.of("America/New_York")).toLocalDateTime();
+        LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(fixedInstant, "America/New_York");
+        assertEquals(expected, actual);
     }
+
     @Test
-    public void testConvertLocalDateTimeToLosAngeles(){
-        Instant instant =Instant.now();
-        LocalDateTime expected = instant.atZone(ZoneId.of("America/Los_Angeles")).toLocalDateTime();
-        LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(instant,"America/Los_Angeles");
-        assertEquals(expected,actual);
+    public void testConvertInstantToLosAngeles() {
+        LocalDateTime fixedDateTime = LocalDateTime.parse("2024-08-08T12:15:00");
+        Instant fixedInstant = fixedDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        LocalDateTime expected = fixedInstant.atZone(ZoneId.of("America/Los_Angeles")).toLocalDateTime();
+        LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(fixedInstant, "America/Los_Angeles");
+        assertEquals(expected, actual);
     }
+
     @Test
-    public void testConvertLocalDateToBrussels(){
-        Instant instant =Instant.now();
-        LocalDateTime expected = instant.atZone(ZoneId.of("Europe/Brussels")).toLocalDateTime();
-        LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(instant,"Europe/Brussels");
-        assertEquals(expected,actual);
+    public void testConvertInstantToBrussels() {
+        LocalDateTime fixedDateTime = LocalDateTime.parse("2024-08-08T12:15:00");
+        Instant fixedInstant = fixedDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        LocalDateTime expected = fixedInstant.atZone(ZoneId.of("Europe/Brussels")).toLocalDateTime();
+        LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(fixedInstant, "Europe/Brussels");
+        assertEquals(expected, actual);
     }
+
     @Test
-    public void testConvertLocalDateToBangkok(){
-        Instant instant =Instant.now();
-        LocalDateTime expected = instant.atZone(ZoneId.of("Asia/Bangkok")).toLocalDateTime();
-        LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(instant,"Asia/Bangkok");
-        assertEquals(expected,actual);
+    public void testConvertInstantToBangkok() {
+        LocalDateTime fixedDateTime = LocalDateTime.parse("2024-08-08T12:15:00");
+        Instant fixedInstant = fixedDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        LocalDateTime expected = fixedInstant.atZone(ZoneId.of("Asia/Bangkok")).toLocalDateTime();
+        LocalDateTime actual = new TimeZoneConverter().convertInstantToLocalDateTime(fixedInstant, "Asia/Bangkok");
+        assertEquals(expected, actual);
     }
 }
