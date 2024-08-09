@@ -20,11 +20,5 @@ public class Main {
         stringexample str = new stringexample();
         String message = "Hi, today is a very nice day.";
         str.printMessageDetails(message);
-
-        ByteValidator validator = new ByteValidator("ISO-8859-9");
-        byte[] byteArray = { (byte) 0xE7 };
-        boolean isValid = validator.isValidByteArray(byteArray);
-
-        System.out.println("Is valid: " + isValid);
     }
-    }
+}
