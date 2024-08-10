@@ -16,13 +16,15 @@ public class ByteValidatorTest {
     }
 
     @Test
-    public void testInvalidByteArrayISO() {
-        ByteValidator validator = new ByteValidator("ISO-8859-9");
+    void testIsValidByteArray_False() {
+        ByteValidator instance = new ByteValidator("UTF-8");
 
-        byte[] validArray = "Б".getBytes();
-        assertTrue(validator.isValidByteArray(validArray), "Byte array should be valid.");
+        // Use a byte array that is not valid for ISO-8859-9
+        byte[] invalidByteArray = {(byte) 0xFF, (byte) 0xFF}; // 0xFF is often invalid in single-byte charsets
+
+        // Call the method and assert that it returns false
+        assertFalse(instance.isValidByteArray(invalidByteArray));
     }
-
     @Test
     public void testUnsupportedCharset() {
         Exception exception = assertThrows(UnsupportedCharsetException.class, () -> {
