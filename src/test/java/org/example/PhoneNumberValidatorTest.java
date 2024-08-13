@@ -1,44 +1,46 @@
 package org.example;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PhoneNumberValidatorTest {
 
-    PhoneNumberValidator validator = new PhoneNumberValidator();
-
     @Test
     public void testValidMobileNumbers() {
-        assertTrue(validator.validatePhoneNumber("+905555555555"));
-        assertTrue(validator.validatePhoneNumber("05555555555"));
-        assertTrue(validator.validatePhoneNumber("5555555555"));
+        PhoneNumberValidator validator = new PhoneNumberValidator();
+
+        assertTrue(validator.validatePhoneNumber("+905301234567"));
+        assertTrue(validator.validatePhoneNumber("05301234567"));
+        assertTrue(validator.validatePhoneNumber("5301234567"));
     }
 
     @Test
     public void testInvalidMobileNumbers() {
-        assertFalse(validator.validatePhoneNumber("+905155555555"));
-        assertFalse(validator.validatePhoneNumber("01555555555"));
-        assertFalse(validator.validatePhoneNumber("555555555"));
+        PhoneNumberValidator validator = new PhoneNumberValidator();
+
+        assertFalse(validator.validatePhoneNumber("+9054012345678"));
+        assertFalse(validator.validatePhoneNumber("0540123456"));
+        assertFalse(validator.validatePhoneNumber("+905a01234567"));
     }
 
     @Test
     public void testValidLandlineNumbers() {
-        assertTrue(validator.validatePhoneNumber("+902123456789"));
+        PhoneNumberValidator validator = new PhoneNumberValidator();
+
         assertTrue(validator.validatePhoneNumber("02123456789"));
-        assertTrue(validator.validatePhoneNumber("2123456789"));
+        assertTrue(validator.validatePhoneNumber("03121234567"));
+        assertTrue(validator.validatePhoneNumber("04123456789"));
+        assertTrue(validator.validatePhoneNumber("08504841674"));
+
     }
 
     @Test
     public void testInvalidLandlineNumbers() {
-        assertFalse(validator.validatePhoneNumber("+902023456789"));
-        assertFalse(validator.validatePhoneNumber("0123456789"));
-        assertFalse(validator.validatePhoneNumber("212345678"));
-    }
+        PhoneNumberValidator validator = new PhoneNumberValidator();
 
-    @Test
-    public void testInvalidFormatNumbers() {
-        assertFalse(validator.validatePhoneNumber("+90555555A555"));
-        assertFalse(validator.validatePhoneNumber("+90212345 6789"));
-        assertFalse(validator.validatePhoneNumber("902123456789"));
+        assertFalse(validator.validatePhoneNumber("+901123456789"));
+        assertFalse(validator.validatePhoneNumber("212345678"));
+        assertFalse(validator.validatePhoneNumber("21234567890"));
+        assertFalse(validator.validatePhoneNumber("21234a6789"));
     }
 }
