@@ -33,4 +33,13 @@ public class IPAddressValidatorTest {
     public void testIPAddressesStartingWith0000() {
         assertFalse(validator.isValidIPAddress("0000.168.1.1"));
     }
+
+    @Test
+    public void testIPAddressesOutOfRange() {
+        assertFalse(validator.isValidIPAddress("999.999.999.999"));
+        assertFalse(validator.isValidIPAddress("300.168.1.1"));
+        assertFalse(validator.isValidIPAddress("192.300.1.1"));
+        assertFalse(validator.isValidIPAddress("192.168.300.1"));
+        assertFalse(validator.isValidIPAddress("192.168.1.300"));
+    }
 }
