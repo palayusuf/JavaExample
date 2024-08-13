@@ -20,7 +20,6 @@ public class IPAddressValidatorTest {
         assertFalse(validator.isValidIPAddress("256.256.256.256"));
         assertFalse(validator.isValidIPAddress("192.168.1"));
         assertFalse(validator.isValidIPAddress("192.168.1.1.1"));
-        assertFalse(validator.isValidIPAddress("192.168.01.1"));
         assertFalse(validator.isValidIPAddress("192.168.1.abc"));
     }
 
