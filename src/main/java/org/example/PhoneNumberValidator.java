@@ -5,10 +5,9 @@ import java.util.regex.Matcher;
 
 public class PhoneNumberValidator {
 
-    String phoneNumberRegex = "^(\\+90|0)?[5-9]\\d{9}$";
+    String phoneNumberRegex = "^(\\+90|0)?(5[0-9]\\d{8}|2\\d{9})$";
     Pattern pattern;
 
-    // Yapıcı (constructor) metod, regex pattern'ini derler
     public PhoneNumberValidator() {
         this.pattern = Pattern.compile(phoneNumberRegex);
     }
