@@ -1,8 +1,9 @@
 package org.example;
 
-public class WholeNumberValidator {
+public class WholeNumberValidator implements Validator {
 
-    public boolean isValidWholeNumber(String input) {
+    @Override
+    public boolean validate(String input) {
         if (input == null || input.isEmpty()) {
             return false;
         }

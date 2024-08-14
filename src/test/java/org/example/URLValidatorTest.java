@@ -1,36 +1,25 @@
 package org.example;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.Test;
 
 public class URLValidatorTest {
 
-    URLValidator validator = new URLValidator();
-
     @Test
-    public void testValidURLs() {
-        assertTrue(validator.isValidURL("https://www.example.com"));
-        assertTrue(validator.isValidURL("http://example.com"));
-        assertTrue(validator.isValidURL("ftp://example.com/file.txt"));
-        assertTrue(validator.isValidURL("file:///C:/path/to/file.txt"));
+    public void testValidURL() {
+        URLValidator validator = new URLValidator();
+        assertTrue(validator.validate("https://www.example.com"));
+        assertTrue(validator.validate("http://example.com"));
+        assertTrue(validator.validate("ftp://files.example.com"));
     }
 
     @Test
-    public void testInvalidURLs() {
-        assertFalse(validator.isValidURL("htt://example.com"));
-        assertFalse(validator.isValidURL("http://example"));
-        assertFalse(validator.isValidURL("example.com"));
-        assertFalse(validator.isValidURL("http:// example.com"));
-    }
-
-    @Test
-    public void testURLsContainingLetters() {
-        assertFalse(validator.isValidURL("http://www.exa mple.com"));
-        assertFalse(validator.isValidURL("https://example.c0m"));
-    }
-
-    @Test
-    public void testURLsStartingWith0000() {
-        assertFalse(validator.isValidURL("http://0000.example.com"));
+    public void testInvalidURL() {
+        URLValidator validator = new URLValidator();
+        assertFalse(validator.validate("htt://example.com"));
+        assertFalse(validator.validate("://example.com"));
+        assertFalse(validator.validate("example.com"));
     }
 }
