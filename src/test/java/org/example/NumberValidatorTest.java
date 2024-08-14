@@ -1,24 +1,26 @@
 package org.example;
-import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class NumberValidatorTest {
+
+    private final NumberValidator validator = new NumberValidator();
+
     @Test
-    public void testValidNumber() {
-        NumberValidator validator = new NumberValidator();
-        assertTrue(validator.isValidNumber("123"));
-        assertTrue(validator.isValidNumber("0"));
-        assertTrue(validator.isValidNumber("123.45"));
-        assertTrue(validator.isValidNumber(".45")); // Kesir kısmı tek başına
-        assertTrue(validator.isValidNumber("0.45"));
+    public void testValidNumbers() {
+        assertTrue(validator.isValidNumber("123"));        // Sadece rakamlar
+        assertTrue(validator.isValidNumber("123.456"));    // Ondalık sayı
+        assertTrue(validator.isValidNumber("0.123"));      // 0 ile başlayan ondalık
+        assertTrue(validator.isValidNumber(".456"));       // Başta 0 olmayan ondalık
     }
 
     @Test
-    public void testInvalidNumber() {
-        NumberValidator validator = new NumberValidator();
-        assertFalse(validator.isValidNumber("12a3"));
-        assertFalse(validator.isValidNumber("123..45"));
-        assertFalse(validator.isValidNumber(""));
-        assertFalse(validator.isValidNumber(null));
-        assertFalse(validator.isValidNumber("123.45.67")); // İki ondalık nokta
+    public void testInvalidNumbers() {
+        assertFalse(validator.isValidNumber(""));          // Boş dize
+        assertFalse(validator.isValidNumber(null));        // null
+        assertFalse(validator.isValidNumber("123..456"));  // İki ondalık nokta
+        assertFalse(validator.isValidNumber("abc"));       // Harf içeren dize
+        assertFalse(validator.isValidNumber("123.45.6"));  // Fazla ondalık noktalar
     }
 }
