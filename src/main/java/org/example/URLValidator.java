@@ -3,7 +3,7 @@ package org.example;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class URLValidator {
+public class URLValidator implements Validator {
 
     String urlRegex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]+[-a-zA-Z0-9+&@#/%=~_|]$";
     Pattern pattern;
@@ -12,7 +12,8 @@ public class URLValidator {
         this.pattern = Pattern.compile(urlRegex);
     }
 
-    public boolean isValidURL(String url) {
+    @Override
+    public boolean validate(String url) {
         Matcher matcher = pattern.matcher(url);
         return matcher.matches();
     }

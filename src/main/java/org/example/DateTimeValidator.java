@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class DateTimeValidator {
+public class DateTimeValidator implements Validator {
 
     DateTimeFormatter formatter;
 
@@ -12,7 +12,8 @@ public class DateTimeValidator {
         this.formatter = DateTimeFormatter.ofPattern(format);
     }
 
-    public boolean validateDateTimeFormat(String dateTime) {
+    @Override
+    public boolean validate(String dateTime) {
         try {
             LocalDateTime.parse(dateTime, formatter);
             return true;

@@ -1,8 +1,9 @@
 package org.example;
 
-public class NumberValidator {
+public class NumberValidator implements Validator {
 
-    public boolean isValidNumber(String input) {
+    @Override
+    public boolean validate(String input) {
         if (input == null || input.isEmpty()) {
             return false;
         }

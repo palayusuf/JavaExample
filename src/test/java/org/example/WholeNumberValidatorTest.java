@@ -1,24 +1,25 @@
 package org.example;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class WholeNumberValidatorTest {
 
-    private final WholeNumberValidator validator = new WholeNumberValidator();
-
     @Test
-    public void testValidWholeNumbers() {
-        assertTrue(validator.isValidWholeNumber("123"));   // Sadece rakamlar
-        assertTrue(validator.isValidWholeNumber("0"));     // Sıfır
+    public void testValidWholeNumber() {
+        WholeNumberValidator validator = new WholeNumberValidator();
+        assertTrue(validator.validate("123")); // Sadece rakamlar
+        assertTrue(validator.validate("0"));   // Tek rakam, geçerli bir bütün sayı
     }
 
     @Test
-    public void testInvalidWholeNumbers() {
-        assertFalse(validator.isValidWholeNumber(""));     // Boş dize
-        assertFalse(validator.isValidWholeNumber(null));   // null
-        assertFalse(validator.isValidWholeNumber("123.0"));// Ondalık sayı
-        assertFalse(validator.isValidWholeNumber("abc"));  // Harf içeren dize
-        assertFalse(validator.isValidWholeNumber("12a3")); // Karışık dize
+    public void testInvalidWholeNumber() {
+        WholeNumberValidator validator = new WholeNumberValidator();
+        assertFalse(validator.validate("123.45")); // Ondalık sayı, geçerli değil
+        assertFalse(validator.validate("abc")); // Harfler, geçerli değil
+        assertFalse(validator.validate("")); // Boş, geçerli değil
+        assertFalse(validator.validate(null)); // Null, geçerli değil
     }
 }
