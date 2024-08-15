@@ -1,0 +1,4 @@
+name,surname,dateOfBirth,phoneNumber,ipAddress,url
+Muhammet,Ozdas,2024-02-30,55512345,999.999.999.999,htp://invalid-url
+Yusuf,Pala,2024-02-29,0000000000,192.168.1.256,http://valid-url.com
+Carla,Sun,1985-06-32,5551234567,999.999.999.999,htp://asda.com
