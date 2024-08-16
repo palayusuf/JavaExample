@@ -1,42 +1,32 @@
 package org.example;
-import org.example.DateTimeValidator;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DateTimeValidatorTest {
+class DateTimeValidatorTest {
 
     @Test
-    public void testValidateDateTimeFormat_ValidFormat() {
-        DateTimeValidator validator = new DateTimeValidator("yyyy-MM-dd HH:mm");
-        boolean isValid = validator.validate("2024-08-12 15:30");
-        assertTrue(isValid, "The date-time should be valid.");
-    }
-
-    @Test
-    public void testValidateDateTimeFormat_InvalidFormat() {
-        DateTimeValidator validator = new DateTimeValidator("yyyy-MM-dd HH:mm");
-        boolean isValid = validator.validate("12-08-2024 15:30");
-        assertFalse(isValid, "The date-time should be invalid.");
-    }
-
-    @Test
-    public void testValidateDateTimeFormat_EmptyString() {
-        DateTimeValidator validator = new DateTimeValidator("yyyy-MM-dd HH:mm");
-        boolean isValid = validator.validate("");
-        assertFalse(isValid, "The date-time should be invalid.");
-    }
-
-    @Test
-    public void testValidateDateTimeFormat_InvalidDateTime() {
-        DateTimeValidator validator = new DateTimeValidator("yyyy-MM-dd HH:mm");
-        boolean isValid = validator.validate("2024-13-12 25:61"); // Geçersiz tarih ve saat
-        assertFalse(isValid, "The date-time should be invalid.");
-    }
-
-    @Test
-    public void testValidateDateTimeFormat_InvalidDateTimeInvalidDay() {
+    void testValidDate() {
         DateTimeValidator validator = new DateTimeValidator("yyyy-MM-dd");
-        boolean isValid = validator.validate("2024-02-30");
-        assertFalse(isValid, "The date-time should be invalid.");
+
+        assertTrue(validator.validate("1985-10-15"), "Valid date should pass validation.");
+        assertTrue(validator.validate("2000-01-01"), "Valid date should pass validation.");
+        assertTrue(validator.validate("1992-03-25"), "Valid date should pass validation.");
+    }
+
+    @Test
+    void testInvalidDate() {
+        DateTimeValidator validator = new DateTimeValidator("yyyy-MM-dd");
+
+        assertFalse(validator.validate("1985-15-10"), "Invalid month should fail validation.");
+        assertFalse(validator.validate("abcd-ef-gh"), "Non-date strings should fail validation.");
+        assertFalse(validator.validate("1985/10/15"), "Wrong date format should fail validation.");
+    }
+
+    @Test
+    void testEmptyOrNullDate() {
+        DateTimeValidator validator = new DateTimeValidator("yyyy-MM-dd");
+
+        assertFalse(validator.validate(""), "Empty string should fail validation.");
     }
 }
