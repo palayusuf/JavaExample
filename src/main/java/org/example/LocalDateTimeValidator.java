@@ -1,21 +1,21 @@
 package org.example;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class DateTimeValidator implements Validator {
+public class LocalDateTimeValidator implements Validator {
 
     DateTimeFormatter formatter;
 
-    public DateTimeValidator(String format) {
+    public LocalDateTimeValidator(String format) {
         this.formatter = DateTimeFormatter.ofPattern(format);
     }
 
     @Override
     public boolean validate(String dateTime) {
         try {
-            LocalDateTime.parse(dateTime, formatter);
+            LocalDate.parse(dateTime, formatter);
             return true;
         } catch (DateTimeParseException e) {
             return false;

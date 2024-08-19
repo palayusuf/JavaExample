@@ -1,5 +1,4 @@
 package org.example;
-
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -8,18 +7,13 @@ public class CsvValidator {
 
     private final Map<Integer, Validator> validatorsMap;
 
-    public CsvValidator(Validator[] validators) {
-        validatorsMap = new HashMap<>();
-        validatorsMap.put(2, validators[0]); // DateTimeValidator
-        validatorsMap.put(3, validators[1]); // PhoneNumberValidator
-        validatorsMap.put(4, validators[2]); // IPAddressValidator
-        validatorsMap.put(5, validators[3]); // URLValidator
+    public CsvValidator(Map<Integer, Validator> validatorsMap) {
+        this.validatorsMap = new HashMap<>(validatorsMap);
     }
 
     public boolean validate(List<String[]> data) {
         if (data.isEmpty()) return false;
 
-        // Skip header
         for (int i = 1; i < data.size(); i++) {
             String[] row = data.get(i);
             System.out.println("Validating row " + i + ": " + String.join(", ", row));
