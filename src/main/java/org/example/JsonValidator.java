@@ -29,9 +29,12 @@ public class JsonValidator {
                 if (jsonObject.has(field)) {
                     String value = jsonObject.getString(field);
                     boolean isValid = validator.validate(value);
+                    if (!isValid) {
+                        throw new IllegalArgumentException("Field: " + field + " has an invalid value: " + value + ". Please provide a valid " + field + ".");
+                    }
                     System.out.println("Field: " + field + ", Value: " + value + ", Valid: " + isValid);
                 } else {
-                    System.out.println("Field: " + field + " is missing.");
+                    throw new IllegalArgumentException("Field: " + field + " is missing. Please provide the " + field + " field.");
                 }
             }
         }
