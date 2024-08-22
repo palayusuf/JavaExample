@@ -2,37 +2,38 @@ package org.example;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
 
 public class JsonValidator {
 
-    private final URLValidator urlValidator;
-    private final PhoneNumberValidator phoneNumberValidator;
+    private final Map<String, Validator> validators;
 
-    public JsonValidator() {
-        this.urlValidator = new URLValidator();
-        this.phoneNumberValidator = new PhoneNumberValidator();
+    public JsonValidator(Map<String, Validator> validators) {
+        this.validators = validators;
     }
 
-    public boolean validate(String jsonData) {
+    public boolean validate(String jsonFileName) {
         try {
+            String jsonData = new String(Files.readAllBytes(Paths.get(jsonFileName)));
             JSONArray jsonArray = new JSONArray(jsonData);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String url = jsonObject.optString("url", null);
-                String phoneNumber = jsonObject.optString("phoneNumber", null);
+                String url = jsonObject.getString("url");
+                String phoneNumber = jsonObject.getString("phoneNumber");
 
-                if (url == null || !urlValidator.validate(url)) {
-                    throw new IllegalArgumentException("Invalid URL: " + url);
+                if (!validators.get("url").validate(url)) {
+                    return false; // Geçersiz URL
                 }
 
-                if (phoneNumber == null || !phoneNumberValidator.validate(phoneNumber)) {
-                    throw new IllegalArgumentException("Invalid phone number: " + phoneNumber);
+                if (!validators.get("phoneNumber").validate(phoneNumber)) {
+                    return false; // Geçersiz telefon numarası
                 }
             }
-            return true;
-        } catch (JSONException e) {
-            throw new RuntimeException("Invalid JSON data: " + e.getMessage());
+            return true; // Tüm veriler geçerli
+        } catch (Exception e) {
+            return false; // JSON verisi hatalı
         }
     }
 }
