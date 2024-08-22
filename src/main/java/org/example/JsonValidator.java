@@ -2,41 +2,37 @@ package org.example;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
+import org.json.JSONException;
 
 public class JsonValidator {
-    private final Map<String, Validator> validators;
 
-    public JsonValidator(Map<String, Validator> validators) {
-        this.validators = validators;
+    private final URLValidator urlValidator;
+    private final PhoneNumberValidator phoneNumberValidator;
+
+    public JsonValidator() {
+        this.urlValidator = new URLValidator();
+        this.phoneNumberValidator = new PhoneNumberValidator();
     }
 
-    public void validateJsonFile(String filePath) throws IOException {
-        String content = new String(Files.readAllBytes(Paths.get(filePath)));
+    public boolean validate(String jsonData) {
+        try {
+            JSONArray jsonArray = new JSONArray(jsonData);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String url = jsonObject.optString("url", null);
+                String phoneNumber = jsonObject.optString("phoneNumber", null);
 
-        JSONArray jsonArray = new JSONArray(content);
+                if (url == null || !urlValidator.validate(url)) {
+                    throw new IllegalArgumentException("Invalid URL: " + url);
+                }
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-            for (Map.Entry<String, Validator> entry : validators.entrySet()) {
-                String field = entry.getKey();
-                Validator validator = entry.getValue();
-
-                if (jsonObject.has(field)) {
-                    String value = jsonObject.getString(field);
-                    boolean isValid = validator.validate(value);
-                    if (!isValid) {
-                        throw new IllegalArgumentException("Field: " + field + " has an invalid value: " + value + ". Please provide a valid " + field + ".");
-                    }
-                    System.out.println("Field: " + field + ", Value: " + value + ", Valid: " + isValid);
-                } else {
-                    throw new IllegalArgumentException("Field: " + field + " is missing. Please provide the " + field + " field.");
+                if (phoneNumber == null || !phoneNumberValidator.validate(phoneNumber)) {
+                    throw new IllegalArgumentException("Invalid phone number: " + phoneNumber);
                 }
             }
+            return true;
+        } catch (JSONException e) {
+            throw new RuntimeException("Invalid JSON data: " + e.getMessage());
         }
     }
 }

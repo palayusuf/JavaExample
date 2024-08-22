@@ -1,42 +1,65 @@
 package org.example;
 
-import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class JsonValidatorTest {
+class JsonValidatorTest {
 
     @Test
-    public void testValidateJsonFile() throws IOException {
-        Validator phoneNumberValidator = mock(Validator.class);
-        Validator urlValidator = mock(Validator.class);
+    void testValidJson() {
+        JsonValidator jsonValidator = new JsonValidator();
+        String jsonData = "[{\"url\": \"http://valid-url.com\", \"phoneNumber\": \"+905012345678\"}, " +
+                "{\"url\": \"ftp://valid-ftp.com\", \"phoneNumber\": \"02123456789\"}]";
 
-        when(phoneNumberValidator.validate("5551234567")).thenReturn(true);
-        when(phoneNumberValidator.validate("0000000000")).thenReturn(false);
-        when(urlValidator.validate("http://valid-url.com")).thenReturn(true);
-        when(urlValidator.validate("htp://invalid-url")).thenReturn(false);
+        assertTrue(jsonValidator.validate(jsonData));
+    }
 
-        Map<String, Validator> validators = Map.of(
-                "phoneNumber", phoneNumberValidator,
-                "url", urlValidator
-        );
 
-        String jsonContent = "[{\"phoneNumber\": \"5551234567\", \"url\": \"http://valid-url.com\"}, " +
-                "{\"phoneNumber\": \"0000000000\", \"url\": \"htp://invalid-url\"}]";
+    @Test
+    void testInvalidPhoneNumber() {
+        JsonValidator jsonValidator = new JsonValidator();
+        String jsonData = "[{\"url\": \"http://valid-url.com\", \"phoneNumber\": \"invalid-phone\"}]";
 
-        Files.write(Paths.get("test-data.json"), jsonContent.getBytes());
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jsonValidator.validate(jsonData);
+        });
 
-        JsonValidator jsonValidator = new JsonValidator(validators);
+        assertTrue(exception.getMessage().contains("Invalid phone number"));
+    }
 
-        jsonValidator.validateJsonFile("test-data.json");
+    @Test
+    void testNullUrl() {
+        JsonValidator jsonValidator = new JsonValidator();
+        String jsonData = "[{\"url\": null, \"phoneNumber\": \"+905012345678\"}]";
 
-        verify(phoneNumberValidator).validate("5551234567");
-        verify(phoneNumberValidator).validate("0000000000");
-        verify(urlValidator).validate("http://valid-url.com");
-        verify(urlValidator).validate("htp://invalid-url");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jsonValidator.validate(jsonData);
+        });
 
+        assertTrue(exception.getMessage().contains("Invalid URL"));
+    }
+
+    @Test
+    void testNullPhoneNumber() {
+        JsonValidator jsonValidator = new JsonValidator();
+        String jsonData = "[{\"url\": \"http://valid-url.com\", \"phoneNumber\": null}]";
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jsonValidator.validate(jsonData);
+        });
+
+        assertTrue(exception.getMessage().contains("Invalid phone number"));
+    }
+
+    @Test
+    void testMalformedJson() {
+        JsonValidator jsonValidator = new JsonValidator();
+        String jsonData = "[{\"url\": \"http://valid-url.com\", \"phoneNumber\": \"+905012345678\"}";
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            jsonValidator.validate(jsonData);
+        });
+
+        assertTrue(exception.getMessage().contains("Invalid JSON data"));
     }
 }
